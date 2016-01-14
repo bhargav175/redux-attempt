@@ -1,2 +1,2 @@
-# freecoders-reader
-Reader app for Freecoders
+# learn-programming-reader
+Reader app for Learn Programming
