@@ -1,5 +1,5 @@
 {
-  "name": "reduxer",
+  "name": "redux-like",
   "scripts": {
     "build": "rm -rf lib && babel ./src --out-dir ./lib",
     "dev": "webpack-dev-server -d --hot --eval --progress --colors",

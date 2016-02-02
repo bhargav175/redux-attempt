@@ -25,29 +25,33 @@ var MyAction = new MyReduxer.Action(function(...args){
 		});
 	}
 });
-console.log(MyAction);
 
-MyAction.dispatch(10,20);
 
 var threereducer = MyReduxer.combineReducers({
-	oneReducer : function(state:{},action){
+	oneReducer : function(state={},action){
 		console.log(state);
-		return "one";
+		return state;
 	},
-	twoReducer : function(state :{},action){
+	twoReducer : function(state={},action){
 		console.log(state);
-		return "two";
+		return {
+			val : "two"
+		};
 	}
 });
 
 var reducer = MyReduxer.combineReducers({
-	oneReducer : function(state:{},action){
+	oneReducer : function(state={},action){
 		console.log(state);
-		return "one";
+		return {
+			val : "one"
+		};
 	},
-	twoReducer : function(state :{},action){
+	twoReducer : function(state={},action){
 		console.log(state);
-		return "two";
+		return {
+			val : "two"
+		};
 	}
 });
 
@@ -56,8 +60,14 @@ var rootReducer = MyReduxer.combineReducers({
 	reducer
 });
 
-var s = {};
-rootReducer(s,{});
-console.log(s);
+
+MyReduxer.createStore(rootReducer);
+
+/**
+ * Dispatch actions
+ */
+console.log(MyAction);
+
+MyAction.dispatch(10,20);
 
 ReactDOM.render(<Main/>,document.getElementById('app'));

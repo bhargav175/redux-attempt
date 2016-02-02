@@ -3,10 +3,16 @@ const Reduxer = (function(){
 
 	let _dispatch = function(obj){
 		console.log(obj);
+		_store.hit(obj);
 	};
 
 	let _store = {
-		
+		_state : {},
+		rootReducer : undefined,
+		hit : function(obj){
+			this._state = this.rootReducer(this._state,obj);
+			console.log(this._state);
+		}
 	} ;
 
 	/**
@@ -85,18 +91,20 @@ const Reduxer = (function(){
 		 * Root Reducer
 		 */
 		this.createStore = function(rootReducer){
-			return rootReducer;
+			_store.rootReducer = rootReducer;
 		}
+
 
 		/**
 		 * Combine Reducers
 		 */
 		this.combineReducers = function(reducers){
-			return function(state:{},action){
+			return function(state={},action){
 				Object.keys(reducers).forEach(r=>{
 					state[r] = {};
-					reducers[r](state[r],action);
+					state[r] = reducers[r](state[r],action);
 				});
+				return state;
 			}
 		};
 
