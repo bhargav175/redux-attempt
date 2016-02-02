@@ -84,7 +84,11 @@ const Reduxer = (function(){
 
 		
 		this.Store = function(){
-			return _store;
+			return {
+				getState : function(){
+					return _store._state;
+				}
+			};
 		};
 
 		/**
