@@ -1,8 +1,7 @@
-const Reduxer = (function(){
+const Redux = (function(){
 
 
 	let _dispatch = function(obj){
-		console.log(obj);
 		_store.hit(obj);
 	};
 
@@ -11,7 +10,6 @@ const Reduxer = (function(){
 		rootReducer : undefined,
 		hit : function(obj){
 			this._state = this.rootReducer(this._state,obj);
-			console.log(this._state);
 		}
 	} ;
 
@@ -20,16 +18,12 @@ const Reduxer = (function(){
 	 */
 	let _evaluateDispatch = function(obj){
 		if(typeof obj !== 'function'){
-			_dispatchQueue.push(obj);
+			_dispatch(obj);
 		}else{
 			obj.call(null,_evaluateDispatch);
 		}
 	}
-	/**
-	 * Dispatch Queue
-	 * @type {Array}
-	 */
-	let _dispatchQueue = [];
+
 
 	/**
 	 * Middleware Queue
@@ -43,15 +37,7 @@ const Reduxer = (function(){
 	 */
 	let _reducers = [];
 
-	let _dispatchLoop = function(){
-		/**
-		 * If there are events to be dispatched in the queue
-		 * dispatch them
-		 */
-		while(_dispatchQueue.length){
-			_dispatch(_dispatchQueue.shift());
-		}
-	};
+
 
 
 
@@ -83,12 +69,10 @@ const Reduxer = (function(){
 		this.Reducer = function(){};
 
 		
-		this.Store = function(){
-			return {
+		this.Store = {
 				getState : function(){
 					return _store._state;
 				}
-			};
 		};
 
 		/**
@@ -118,14 +102,18 @@ const Reduxer = (function(){
 		 */
 		this.applyMiddlewares = function(...fns){};
 
+		/**
+		 * Connect
+		 */
 		
-
-		setInterval(()=>{
-			_dispatchLoop();
-		});
+		this.connect = function(container){
+			//container is a react element
+			console.log(container);
+		}
+		
 	}
 	
 })();
 
 
-export default Reduxer;
+export default Redux;

@@ -1,19 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Reduxer from '../src'
-/*
- * Root Dev Component
-*/
-class Main extends React.Component{
-	render(){
-		return <div>Main</div>;
-	}
-}
+import Redux from '../src'
 
-export default Main;
 
-var MyReduxer = new Reduxer();
-var MyAction = new MyReduxer.Action(function(...args){
+
+
+var MyRedux = new Redux();
+var MyAction = new MyRedux.Action(function(...args){
 	return function(dispatch){
 		dispatch({
 			action : 'yo',
@@ -27,41 +18,37 @@ var MyAction = new MyReduxer.Action(function(...args){
 });
 
 
-var threereducer = MyReduxer.combineReducers({
-	oneReducer : function(state={},action){
-		console.log(state);
+var anotherreducer = MyRedux.combineReducers({
+	one : function(state={},action){
 		return state;
 	},
-	twoReducer : function(state={},action){
-		console.log(state);
+	two : function(state={},action){
 		return {
 			val : "two"
 		};
 	}
 });
 
-var reducer = MyReduxer.combineReducers({
-	oneReducer : function(state={},action){
-		console.log(state);
+var reducer = MyRedux.combineReducers({
+	one : function(state={},action){
 		return {
 			val : "one"
 		};
 	},
-	twoReducer : function(state={},action){
-		console.log(state);
+	two : function(state={},action){
 		return {
 			val : "two"
 		};
 	}
 });
 
-var rootReducer = MyReduxer.combineReducers({
-	threereducer,
+var rootReducer = MyRedux.combineReducers({
+	anotherreducer,
 	reducer
 });
 
 
-MyReduxer.createStore(rootReducer);
+MyRedux.createStore(rootReducer);
 
 /**
  * Dispatch actions
@@ -69,5 +56,7 @@ MyReduxer.createStore(rootReducer);
 console.log(MyAction);
 
 MyAction.dispatch(10,20);
+var state = MyRedux.Store.getState();
+console.log(state);
 
-ReactDOM.render(<Main/>,document.getElementById('app'));
+
