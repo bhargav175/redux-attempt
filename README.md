@@ -1,5 +1,3 @@
-#Reduxer
+# Redux-attempt
 
-Javascript flux framework based on Redux
-
-Actions, Reducers, A Singleton store, Dispatcher and Components.
+A tiny framework, just to get a hang of how redux internals work. Just a lib to learn. Not fit for dev/prod use.
